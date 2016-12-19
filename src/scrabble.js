@@ -1,12 +1,12 @@
-
+import Backbone from 'backbone';
 // scrabble.js
 
 // Create default Scrabble object
-const Scrabble = function() {};
+const Scrabble = Backbone.Model.extend({
 
 
 // Get the score for a single letter
-Scrabble.prototype.scoreLetter = function(letter) {
+scoreLetter: function(letter) {
   letter = letter.toUpperCase();
   var letters = ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T', 'D', 'G', 'B', 'C', 'M', 'P', 'F', 'H', 'V', 'W', 'Y', 'K', 'J', 'X', 'Q', 'Z'];
   var scores = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 8, 8, 10, 10];
@@ -16,10 +16,10 @@ Scrabble.prototype.scoreLetter = function(letter) {
     }
   }
   return 0;
-};
+},
 
 // Get the score for a word (based on the characters that compose it and whether it has 7 letters)
-Scrabble.prototype.score = function(word) {
+score: function(word) {
   var total = 0;
   for (var i = 0; i < word.length; i++){
     total += this.scoreLetter(word[i]);
@@ -28,10 +28,10 @@ Scrabble.prototype.score = function(word) {
     total += 50;
   }
   return total;
-};
+},
 
 
-Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
+highestScoreFrom: function(arrayOfWords) {
   if (arrayOfWords.constructor !== Array || arrayOfWords.length === 0){
     return null;   // If there is nothing in the array, return null as the highest scoring word
   } else if (arrayOfWords.length == 1) {
@@ -53,8 +53,9 @@ Scrabble.prototype.highestScoreFrom = function(arrayOfWords) {
     }
   }
   return highest[0];
-};
+},
 
+}); // closing Scrabble
 
 // Export so we can use it.
 export default Scrabble;
